@@ -1,0 +1,94 @@
+-- --------------------------------------------------------
+-- Host:                         192.168.1.72
+-- Versión del servidor:         10.4.7-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             10.2.0.5599
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Volcando estructura de base de datos para bd_blog_php
+CREATE DATABASE IF NOT EXISTS `bd_blog_php` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `bd_blog_php`;
+
+-- Volcando estructura para tabla bd_blog_php.tbl_articulos
+CREATE TABLE IF NOT EXISTS `tbl_articulos` (
+  `ta_cod_articulo` int(11) NOT NULL AUTO_INCREMENT,
+  `ta_cat_articulo` int(11) DEFAULT NULL,
+  `ta_portada_articulo` text DEFAULT NULL,
+  `ta_titulo_articulo` text DEFAULT NULL,
+  `ta_descripcion_articulo` text DEFAULT NULL,
+  `ta_p_claves_articulo` text DEFAULT NULL,
+  `ta_ruta_articulo` text DEFAULT NULL,
+  `ta_contenido_articulo` text DEFAULT NULL,
+  `ta_vistas_articulo` text DEFAULT NULL,
+  `ta_fecha_articulo` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`ta_cod_articulo`),
+  KEY `ta_cat_articulo` (`ta_cat_articulo`),
+  CONSTRAINT `FK_tbl_articulos_tbl_categorias` FOREIGN KEY (`ta_cat_articulo`) REFERENCES `tbl_categorias` (`tc_cod_categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla bd_blog_php.tbl_articulos: ~1 rows (aproximadamente)
+DELETE FROM `tbl_articulos`;
+/*!40000 ALTER TABLE `tbl_articulos` DISABLE KEYS */;
+INSERT INTO `tbl_articulos` (`ta_cod_articulo`, `ta_cat_articulo`, `ta_portada_articulo`, `ta_titulo_articulo`, `ta_descripcion_articulo`, `ta_p_claves_articulo`, `ta_ruta_articulo`, `ta_contenido_articulo`, `ta_vistas_articulo`, `ta_fecha_articulo`) VALUES
+	(1, 1, 'vistas/img/articulos/articulo-01/articulo01.png', 'Titulo del articulo', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', '["españa","italia","grecia","francia","alemania","croacia","inglaterra"]', 'titulo-del-articulo', '<img src="vistas/img/articulo.png" alt="Lorem ipsum dolor sit amet" class="img-fluid my-lg-3">', NULL, '2020-07-23 19:02:18');
+/*!40000 ALTER TABLE `tbl_articulos` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bd_blog_php.tbl_blog
+CREATE TABLE IF NOT EXISTS `tbl_blog` (
+  `tb_cod_blog` int(11) NOT NULL AUTO_INCREMENT,
+  `tb_dominio` text NOT NULL,
+  `tb_titulo` text NOT NULL,
+  `tb_descripcion` text NOT NULL,
+  `tb_palabras_claves` text NOT NULL,
+  `tb_portada` text NOT NULL,
+  `tb_email` text NOT NULL,
+  `tb_logo` text NOT NULL,
+  `tb_icono` text NOT NULL,
+  `tb_redes_sociales` text NOT NULL,
+  `tb_sobre_mi` text NOT NULL,
+  `tb_sobre_mi_completo` text NOT NULL,
+  `tb_fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`tb_cod_blog`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla bd_blog_php.tbl_blog: ~1 rows (aproximadamente)
+DELETE FROM `tbl_blog`;
+/*!40000 ALTER TABLE `tbl_blog` DISABLE KEYS */;
+INSERT INTO `tbl_blog` (`tb_cod_blog`, `tb_dominio`, `tb_titulo`, `tb_descripcion`, `tb_palabras_claves`, `tb_portada`, `tb_email`, `tb_logo`, `tb_icono`, `tb_redes_sociales`, `tb_sobre_mi`, `tb_sobre_mi_completo`, `tb_fecha`) VALUES
+	(1, 'http://192.168.1.72/', 'Juanito Travel', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint architecto, doloremque porro perspiciatis repudiandae ullam quae velit recusandae error nulla suscipit totam magni corrupti. Error inventore fugiat doloribus molestias harum?', '["juanito","travel","viajes","mochileros","vuelta al mundo","suramerica","norteamerica"]', 'vistas/img/ad01.jpg', 'carlos.ablues@gmail.com', 'vistas/img/logotipo-negativo.png', 'vistas/img/logotipo-negativo.png', '[{"red": "facebook","url": "https://www.facebook.com/","icono": "fab fa-facebook-f"}, {"red": "instagram","url": "https://www.instagram.com/","icono": "fab fa-instagram"}, {"red": "twitter","url": "https://www.twitter.com/","icono": "fab fa-twitter"}, {"red": "youtube","url": "https://www.youtube.com/","icono": "fab fa-youtube"}, {"red": "snapchat","url": "https://www.snapchat.com/","icono": "fab fa-snapchat-ghost"}]', '<div class="sobreMi"><h4>Sobre Mi</h4><img src="vistas/img/sobreMi.jpg" alt="Lorem ipsum dolor sit amet" class="img-fluid my-1"><p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum odio, eos architecto atque numquam alias laboriosam minima beatae consectetur.</p></div>', '<div class="sobreMi"><h4>Sobre Mi</h4><img src="vistas/img/sobreMi.jpg" alt="Lorem ipsum dolor sit amet" class="img-fluid my-1"><p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum odio, eos architecto atque numquam alias laboriosam minima beatae consectetur.</p></div>', '2020-06-16 22:20:39');
+/*!40000 ALTER TABLE `tbl_blog` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bd_blog_php.tbl_categorias
+CREATE TABLE IF NOT EXISTS `tbl_categorias` (
+  `tc_cod_categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `tc_titulo_categoria` text NOT NULL,
+  `tc_descripcion_categoria` text NOT NULL,
+  `tc_p_claves_categoria` text NOT NULL,
+  `tc_ruta_categoria` text NOT NULL,
+  `tc_img_categoria` text NOT NULL,
+  `tc_fecha_categoria` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`tc_cod_categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla bd_blog_php.tbl_categorias: ~6 rows (aproximadamente)
+DELETE FROM `tbl_categorias`;
+/*!40000 ALTER TABLE `tbl_categorias` DISABLE KEYS */;
+INSERT INTO `tbl_categorias` (`tc_cod_categoria`, `tc_titulo_categoria`, `tc_descripcion_categoria`, `tc_p_claves_categoria`, `tc_ruta_categoria`, `tc_img_categoria`, `tc_fecha_categoria`) VALUES
+	(1, 'Suramérica', 'Mi viaje por Suramérica', '["suramerica","colombia","peru","argentina","chile","brasil","ecuador","venezuela","paraguay","uruguay","bolivia"]', 'suramerica', 'vistas/img/categorias/suramerica.jpg', '2020-06-17 22:28:54'),
+	(2, 'Centroamérica', 'Mi viaje por Centroamérica', '["mexico","honduras","guatemala","panama","aruba","republica dominicana","el salvador","cuba"]', 'centroamerica', 'vistas/img/categorias/centroamerica.jpg', '2020-06-17 22:42:01'),
+	(3, 'Norteamérica', 'Mi viaje por Norteamérica', '["estados unidos","canada","orlando","florida","cataratas del niagara","las vegas","hollywood"]', 'norteamerica', 'vistas/img/categorias/norteamerica.jpg', '2020-06-17 22:41:55'),
+	(4, 'Europa', 'Mi viaje por Europa', '["españa","italia","grecia","francia","alemania","croacia","inglaterra"]', 'europa', 'vistas/img/categorias/europa.jpg', '2020-06-17 22:46:26'),
+	(5, 'África ', 'Mi viaje por África ', '["egipto","marruecos","piramides","surafrica","madagascar","safari"]', 'africa', 'vistas/img/categorias/africa.jpg', '2020-06-17 22:49:23'),
+	(6, 'Asia', 'Mi viaje por Asia', '["japon","china","korea","singapur","rusia"]', 'asia', 'vistas/img/categorias/asia.jpg', '2020-06-17 22:50:57');
+/*!40000 ALTER TABLE `tbl_categorias` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
